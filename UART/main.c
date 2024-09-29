@@ -124,10 +124,11 @@ int main(void)
     for (;;)
     {
 
-    	if(Cy_SCB_UART_GetNumInRxFifo(SCB5) != 0){
+    	if(Cy_SCB_UART_GetNumInRxFifo(SCB5) != 0UL){
     		received_data = Cy_SCB_UART_Get(SCB5);
-    		Cy_SysLib_Delay(10);
-    		Cy_SCB_UART_Put(SCB5,received_data);
+    		while( 0UL == Cy_SCB_UART_Put(SCB5,received_data)){
+
+    		}
     	}
     }
 }
