@@ -125,6 +125,7 @@ int main(void)
 
     // Initialize GPIO for LED (Output)
     Cy_GPIO_Pin_FastInit(CYBSP_USER_LED_PORT, CYBSP_USER_LED_PIN, CY_GPIO_DM_STRONG, 0, HSIOM_SEL_GPIO);
+   // (or)     Cy_GPIO_Pin_FastInit(GPIO_PRT13, 7U, CY_GPIO_DM_STRONG, 0, HSIOM_SEL_GPIO);
 
     // Initialize GPIO for Button (Input with pull-up)
  //   Cy_GPIO_Pin_FastInit(CYBSP_USER_BTN_PORT, CYBSP_USER_BTN_NUM, CY_GPIO_DM_PULLUP, 1, HSIOM_SEL_GPIO);
@@ -134,6 +135,10 @@ int main(void)
            .intrSrc = CYBSP_USER_BTN_IRQ,
            .intrPriority = 3
        };
+	/*  (or)     const cy_stc_sysint_t gpio_irq_cfg = {
+           .intrSrc = ioss_interrupts_gpio_0_IRQn,
+           .intrPriority = 3
+       };   */
 
        Cy_SysInt_Init(&gpio_irq_cfg, GPIO_ISR); // Initialize interrupt
        NVIC_EnableIRQ(CYBSP_USER_BTN_IRQ);                  // Enable interrupt in NVIC
